@@ -9,12 +9,57 @@ const getutilizador = (req,res)=>{
         {
             throw error
         }
-        console.log(results)
-        console.log(results.rows)
         res.status(200).json(results)
     })
 }
 
+const getutilizadorbyid= (request, response) => {
+    const id = parseInt(request.params.id)
+    console.log(id)
+    client.query('select nome_utilizador,email_utilizador,localizacao_fotos,tipo_utilizador from utilizador where id_utilizador =' +id , [id], (error, results) => {
+        if (error) {
+            throw error
+        }
+        console.log(results)
+        response.status(200).json(results)
+    })
+}
+
+
+const getutilizadorbylog= (request, response) => {
+    const users = request.body
+    client.query('select nome_utilizador,email_utilizador,localizacao_fotos,tipo_utilizador from utilizador where email_utilizador = \'' + users.email.toString() + '\' and pass_utilizador = \''+users.pass.toString()+'\'' , (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results)
+    })
+}
+
+
+
+
+
+
+
+
+
+
+const getlogin= (request, response) => {
+    const users = request.body
+    client.query('select * from utilizador where email_utilizador = \'' + users.us_name.toString() + '\' and pass_utilizador = \''+users.us_email.toString()+'\'' , (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).send(results.toJSON())
+        //response.status(200).json(results)
+    })
+}
+
 module.exports = {
-    getutilizador
+    getutilizador,
+    getutilizadorbyid,
+    getutilizadorbylog,
+    getlogin,
+
 }

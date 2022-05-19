@@ -38,7 +38,7 @@
 //
 // connection.connect();
 
-/*
+
 var mysql = require('mysql');
 var conn = mysql.createPool({
     host: "localhost",
@@ -47,10 +47,10 @@ var conn = mysql.createPool({
     database : 'tour4us',
     port: '3306'
 });
-*/
 
 
 
+/*
 var mysql = require('mysql');
 var conn = mysql.createPool({
     host: "85.246.8.73",
@@ -59,5 +59,5 @@ var conn = mysql.createPool({
     database : 'tour4us',
     port: '3308'
 });
-
+*/
 module.exports = conn;

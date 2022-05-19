@@ -3,10 +3,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-const products = require('./routes/produts');
 
 
 var app = express();
@@ -17,16 +13,33 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-const products_root = require('../tour4us/routes/produtos_root')
-const utilizador = require('../tour4us/routes/utilizador')
 
+
+
+
+const utilizador = require('../tour4us/routes/utilizador')
+app.get('/utilizador',utilizador.getutilizador)
+app.get('/utilizadorpost',utilizador.getutilizadorbylog)
+app.get('/utilizador/:id(\\d+)',utilizador.getutilizadorbyid)
+app.get('/login',utilizador.getlogin)
+
+const products_root = require('../tour4us/routes/produtos_root')
 app.get('/produto',products_root.getproduto)
 app.get('/produto/:id(\\d+)',products_root.getprodutoById)
 app.get('/listaprodutos/:id(\\d+)',products_root.getlistaprodutos)
-app.get('/utilizador',utilizador.getutilizador)
-//app.get('/a',products.getproducts)
+
+
+const distrito = require('./routes/distritos');
+app.get('/distrito/:id(\\d+)',distrito.getdistritos)
+app.get('/distrito',distrito.getlistadistritos)
+
+/*
+const login = require('./routes/login');
+app.get('/login',login.getlogin)
+ */
+
+const pagina_principal = require('./routes/pagina_principal');
+app.get('/pagina',pagina_principal.getpaginaprincipal)
 
 module.exports = app;
 
