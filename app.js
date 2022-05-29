@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const utilizador = require('../tour4us/routes/utilizador')
 app.get('/utilizador',utilizador.getutilizador)
-app.get('/utilizadorpost',utilizador.getutilizadorbylog)
+app.post('/utilizadorpost',utilizador.getutilizadorbylog)
 app.get('/utilizador/:id(\\d+)',utilizador.getutilizadorbyid)
 app.get('/login',utilizador.getlogin)
 
@@ -27,6 +27,9 @@ const products_root = require('../tour4us/routes/produtos_root')
 app.get('/produto',products_root.getproduto)
 app.get('/produto/:id(\\d+)',products_root.getprodutoById)
 app.get('/listaprodutos/:id(\\d+)',products_root.getlistaprodutos)
+app.get('/tipoprod',products_root.getprodutoBytipoprod)
+app.get('/recomendados',products_root.getrecomendados)
+
 
 
 const distrito = require('./routes/distritos');

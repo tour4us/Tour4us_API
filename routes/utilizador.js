@@ -3,8 +3,8 @@ const app = express()
 const client = require('../models/connection')
 
 const getutilizador = (req,res)=>{
-    client.query('select id_utilizador,nome_utilizador,email_utilizador,localizacao_fotos,tipo_utilizador from utilizador\n' +
-        '    inner join tipo_utilizador on utilizador.tipo_utilizador = tipo_utilizador.id_tipo_utilizador\n' ,(error,results)=>{
+    client.query('select id_utilizador,nome_utilizador,email_utilizador,localizacao_fotos,tipo_utilizador.tipo_utililizador from utilizador ' +
+        'inner join tipo_utilizador on utilizador.tipo_utilizador = tipo_utilizador.id_tipo_utilizador' ,(error,results)=>{
         if(error)
         {
             throw error
@@ -16,7 +16,8 @@ const getutilizador = (req,res)=>{
 const getutilizadorbyid= (request, response) => {
     const id = parseInt(request.params.id)
     console.log(id)
-    client.query('select nome_utilizador,email_utilizador,localizacao_fotos,tipo_utilizador from utilizador where id_utilizador =' +id , [id], (error, results) => {
+    client.query('select id_utilizador,nome_utilizador,email_utilizador,localizacao_fotos,tipo_utilizador.tipo_utililizador from utilizador ' +
+        'inner join tipo_utilizador on utilizador.tipo_utilizador = tipo_utilizador.id_tipo_utilizador where id_utilizador =' +id , [id], (error, results) => {
         if (error) {
             throw error
         }
@@ -28,7 +29,9 @@ const getutilizadorbyid= (request, response) => {
 
 const getutilizadorbylog= (request, response) => {
     const users = request.body
-    client.query('select nome_utilizador,email_utilizador,localizacao_fotos,tipo_utilizador from utilizador where email_utilizador = \'' + users.email.toString() + '\' and pass_utilizador = \''+users.pass.toString()+'\'' , (error, results) => {
+    console.log("user:  "+JSON.stringify(users))
+    client.query('select nome_utilizador,email_utilizador,localizacao_fotos,tipo_utilizador from utilizador ' +
+        'where email_utilizador = \'' + users.email.toString() + '\' and pass_utilizador = \''+users.pass.toString()+'\'' , (error, results) => {
         if (error) {
             throw error
         }
